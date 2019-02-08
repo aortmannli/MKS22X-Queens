@@ -1,17 +1,27 @@
 public class QueenBoard{
     private int[][]board;
 
+    public static void main(String[] args){
+
+    }
+
     public QueenBoard(int size){
       board = new int[size][size];
     }
 
-    private boolean addQueen(int r, int c){
-      board[r][c] = -1;
+    public boolean addQueen(int r, int c){
+      if (board[r][c] == 0){
+        board[r][c] = -1;
+        return true;
+      }else{
+        return false;
+      }
     }
 
     private boolean notSafe(int r, int c){
       if (board[r][c] == 0) board[r][c]++;
       if (board[r][c] == -1) board[r][c]+=2;
+      return false;
     }
 
     /**
@@ -30,11 +40,12 @@ public class QueenBoard{
    */
    public String toString(){
      String out = "";
-     for (int x = 0; x < board.length; x++) {
-       for (int y = 0; y < data[0].length; y++) {
-         if(board[r][c] == -1) out += "Q";
-         else out += "_";
+     for (int r = 0; r < board.length; r++) {
+       for (int c = 0; c < board[0].length; c++) {
+         if(board[r][c] == -1) out += "Q ";
+         else out += "_ ";
        }
+       out += "\n";
      }
      return out;
    }
@@ -46,18 +57,21 @@ public class QueenBoard{
    *        true when the board is solveable, and leaves the board in a solved state
    *@throws IllegalStateException when the board starts with any non-zero value
    */
-
+/*
    public boolean solve(){
 
-   }
+   }*/
 
    /**
    *@return the number of solutions found, and leaves the board filled with only 0's
    *@throws IllegalStateException when the board starts with any non-zero value
    */
+   /*
    public int countSolutions(){
+     int count;
 
-   }
+     return count;
+   }*/
 
 
 
