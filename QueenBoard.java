@@ -12,10 +12,16 @@ public class QueenBoard{
     public boolean addQueen(int r, int c){
       if (board[r][c] == 0){
         board[r][c] = -1;
-        return true;
       }else{
         return false;
       }
+      for(int i = 1; i < board.length-c; i++){
+        board[r][c+i]++;
+      
+        if (r - i >= 0) board[r-i][c+i]++;
+        if (r + i < board.length) board[r+i][c+i]++;
+      }
+      return true;
     }
 
     private boolean notSafe(int r, int c){
@@ -43,6 +49,7 @@ public class QueenBoard{
      for (int r = 0; r < board.length; r++) {
        for (int c = 0; c < board[0].length; c++) {
          if(board[r][c] == -1) out += "Q ";
+         else if(board[r][c] > 0) out += "X ";
          else out += "_ ";
        }
        out += "\n";
