@@ -7,29 +7,24 @@ public class QueenBoard{
 
     public QueenBoard(int size){
       board = new int[size][size];
+      for(int r = 0; r < board.length; r++) {
+      for(int c = 0; c < board[r].length; c++) {
+        board[r][c] = 0;
+      }
+    }
     }
 
     public boolean addQueen(int r, int c){
-      if (board[r][c] == 0){
+      if(safe(board, r, c)) {
         board[r][c] = -1;
-      }else{
-        return false;
+        return true;
       }
-      for(int i = 1; i < board.length-c; i++){
-        board[r][c+i]++;
-      
-        if (r - i >= 0) board[r-i][c+i]++;
-        if (r + i < board.length) board[r+i][c+i]++;
-      }
-      return true;
-    }
-
-    private boolean notSafe(int r, int c){
-      if (board[r][c] == 0) board[r][c]++;
-      if (board[r][c] == -1) board[r][c]+=2;
       return false;
     }
 
+    public boolean safe(int[][] board, int r, int c){
+      return false;
+    }
     /**
    *@return The output string formatted as follows:
    *All numbers that represent queens are replaced with 'Q'
