@@ -22,8 +22,49 @@ public class QueenBoard{
       return false;
     }
 
+    private boolean removeQueen(int r, int c) {
+    if (board[r][c] == -1){
+      board[r][c] = 0;
+      return true;
+    }
+    return false;
+    }
+
     public boolean safe(int[][] board, int r, int c){
-      return false;
+      for(int i = 0; i < c; i++){
+        if(board[r][i] == -1) return false;
+      }
+
+      for(int x = c; x < board[r].length - 1; x++){
+        for(int y=r; y > 0; y--){
+          if(board[x][y] == -1) return false;
+        }
+      }
+
+      for(int x = c, d = r; x< board[r].length - 1; x++) {
+        for( int y = r; y < board.length - 1; y++)
+        if(board[x][y] == -1) {
+          return false;
+        }
+      }
+
+      for(int i = c; i < board.length; i++){
+        if(board[r][i] == -1) return false;
+      }
+
+      for(int x = c ; x >= 0; x--) {
+        for (int y = r; y < board.length - 1; y++){
+          if(board[x][y] == -1) return false;
+        }
+      }
+
+      for(int x = c; x >= 0; x--){
+        for(int y = r; y >= 0;y--){
+          if(board[x][y] == -1) return false;
+        }
+      }
+
+      return true;
     }
     /**
    *@return The output string formatted as follows:
@@ -44,7 +85,7 @@ public class QueenBoard{
      for (int r = 0; r < board.length; r++) {
        for (int c = 0; c < board[0].length; c++) {
          if(board[r][c] == -1) out += "Q ";
-         else if(board[r][c] > 0) out += "X ";
+         else if(!safe(board,r,c)) out += "X ";
          else out += "_ ";
        }
        out += "\n";
