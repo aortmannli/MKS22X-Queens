@@ -31,38 +31,34 @@ public class QueenBoard{
     }
 
     public boolean safe(int[][] board, int r, int c){
-      for(int i = 0; i < c; i++){
-        if(board[r][i] == -1) return false;
+      for(int i =0; i < board.length; i++){
+        if (board[r][i] == -1) return false;
+        if (board[i][c] == -1) return false;
       }
 
-      for(int x = c; x < board[r].length - 1; x++){
-        for(int y=r; y > 0; y--){
+      for(int x = c, y = r ; x < board[y].length - 1 && y > 0; x++, y--){
           if(board[x][y] == -1) return false;
-        }
       }
 
-      for(int x = c, d = r; x< board[r].length - 1; x++) {
-        for( int y = r; y < board.length - 1; y++)
-        if(board[x][y] == -1) {
-          return false;
-        }
+      for(int u = c, d = r; u >= 0 && d < board.length - 1; u--, d++) {
+      if(board[d][u] == -1) {
+        return false;
       }
+    }
 
-      for(int i = c; i < board.length; i++){
-        if(board[r][i] == -1) return false;
+    for(int u = c, d = r; u < board[d].length - 1 && d < board.length - 1; u++, d++) {
+      if(board[d][u] == -1) {
+        return false;
       }
+    }
 
-      for(int x = c ; x >= 0; x--) {
-        for (int y = r; y < board.length - 1; y++){
-          if(board[x][y] == -1) return false;
-        }
+    //Checks for the top diagonal to the left.
+    for(int u = c, d = r; u >= 0 && d >= 0; u--, d--) {
+      if(board[d][u] == -1) {
+        return false;
       }
+    }
 
-      for(int x = c; x >= 0; x--){
-        for(int y = r; y >= 0;y--){
-          if(board[x][y] == -1) return false;
-        }
-      }
 
       return true;
     }
