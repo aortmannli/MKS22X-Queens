@@ -30,6 +30,8 @@ public class QueenBoard{
     return false;
     }
 
+
+    //bryan lai told me hes doing it using a safe checker method and about this for loop format
     public boolean safe(int[][] board, int r, int c){
       for(int i =0; i < board.length; i++){
         if (board[r][i] == -1) return false;
@@ -37,31 +39,25 @@ public class QueenBoard{
       }
 
       for(int x = c, y = r ; x < board[y].length - 1 && y > 0; x++, y--){
-          if(board[x][y] == -1) return false;
+        if(board[x][y] == -1) return false;
       }
 
-      for(int u = c, d = r; u >= 0 && d < board.length - 1; u--, d++) {
-      if(board[d][u] == -1) {
-        return false;
+      for(int x = c, y = r; x >= 0 && y < board.length - 1; x--, y++) {
+        if(board[x][y] == -1) return false;
       }
-    }
 
-    for(int u = c, d = r; u < board[d].length - 1 && d < board.length - 1; u++, d++) {
-      if(board[d][u] == -1) {
-        return false;
+      for(int x = c, y = r; x < board[y].length - 1 && y < board.length - 1; x++, y++) {
+        if(board[y][x] == -1) return false;
       }
-    }
 
-    //Checks for the top diagonal to the left.
-    for(int u = c, d = r; u >= 0 && d >= 0; u--, d--) {
-      if(board[d][u] == -1) {
-        return false;
+      for(int x = c, y = r; x >= 0 && y >= 0; x--, y--) {
+        if(board[y][x] == -1) return false;
       }
-    }
-
 
       return true;
     }
+
+
     /**
    *@return The output string formatted as follows:
    *All numbers that represent queens are replaced with 'Q'
@@ -96,10 +92,14 @@ public class QueenBoard{
    *        true when the board is solveable, and leaves the board in a solved state
    *@throws IllegalStateException when the board starts with any non-zero value
    */
-/*
+
    public boolean solve(){
 
-   }*/
+   }
+
+   public boolean solveHelp(){
+     
+   }
 
    /**
    *@return the number of solutions found, and leaves the board filled with only 0's
