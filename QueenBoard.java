@@ -15,7 +15,7 @@ public class QueenBoard{
     }
 
     public boolean addQueen(int r, int c){
-      if(safe(board, r, c)) {
+      if(safe(r, c)) {
         board[r][c] = -1;
         return true;
       }
@@ -32,7 +32,7 @@ public class QueenBoard{
 
 
     //bryan lai told me hes doing it using a safe checker method and about this for loop format
-    public boolean safe(int[][] board, int r, int c){
+    public boolean safe(int r, int c){
       for(int i =0; i < board.length; i++){
         if (board[r][i] == -1) return false;
         if (board[i][c] == -1) return false;
@@ -77,7 +77,7 @@ public class QueenBoard{
      for (int r = 0; r < board.length; r++) {
        for (int c = 0; c < board[0].length; c++) {
          if(board[r][c] == -1) out += "Q ";
-         else if(!safe(board,r,c)) out += "X ";
+         else if(!safe(r,c)) out += "X ";
          else out += "_ ";
        }
        out += "\n";
@@ -94,11 +94,21 @@ public class QueenBoard{
    */
 
    public boolean solve(){
-
+     return solveHelp(0);
    }
 
-   public boolean solveHelp(){
-     
+   public boolean solveHelp(int c){
+     if (c==board.length) return true;
+     for(int i = 0; i < board.length; i++) {
+          if(safe(i,c)) {
+            addQueen(i,c);
+            if(solveHelp(c + 1)) {
+              return true;
+            }
+            removeQueen(i,c);
+          }
+      }
+     return false;
    }
 
    /**
