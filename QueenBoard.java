@@ -8,10 +8,10 @@ public class QueenBoard{
     public QueenBoard(int size){
       board = new int[size][size];
       for(int r = 0; r < board.length; r++) {
-      for(int c = 0; c < board[r].length; c++) {
-        board[r][c] = 0;
+        for(int c = 0; c < board[r].length; c++) {
+          board[r][c] = 0;
+        }
       }
-    }
     }
 
     public boolean addQueen(int r, int c){
@@ -77,7 +77,6 @@ public class QueenBoard{
      for (int r = 0; r < board.length; r++) {
        for (int c = 0; c < board[0].length; c++) {
          if(board[r][c] == -1) out += "Q ";
-         else if(!safe(r,c)) out += "X ";
          else out += "_ ";
        }
        out += "\n";
@@ -94,8 +93,25 @@ public class QueenBoard{
    */
 
    public boolean solve(){
+     for(int r = 0; r < board.length; r++) {
+       for(int c = 0; c < board[r].length; c++) {
+         if(board[r][c] != 0) throw new IllegalStateException();
+       }
+     }
      return solveHelp(0);
    }
+
+   /*
+   boolean solveR(int col)
+      if col is past end of board:
+         return true
+      for each row:
+          if addQueen:
+              if solveR(col+1):
+                  return true
+              removeQueen
+      return false
+   */
 
    public boolean solveHelp(int c){
      if (c==board.length) return true;
@@ -111,6 +127,7 @@ public class QueenBoard{
      return false;
    }
 
+
    /**
    *@return the number of solutions found, and leaves the board filled with only 0's
    *@throws IllegalStateException when the board starts with any non-zero value
@@ -124,10 +141,30 @@ public class QueenBoard{
 
 
 
+   public int countSolutions(){
+     for(int r = 0; r < board.length; r++) {
+       for(int c = 0; c < board[r].length; c++) {
+         if(board[r][c] != 0) throw new IllegalStateException();
+       }
+     }
+     for(int r = 0; r < board.length; r++) {
+       for(int c = 0; c < board[r].length; c++) {
+         board[r][c] = 0;
+       }
+     }
+     return cSHelp(0);
+   }
 
 
 
-
-
-
+   public int cSHelp(int x) {
+     int c = 0;
+     for(int i = 0; i < board.length; i++) {
+      if(addQueen(i,x)) {
+        c += cSHelp(x + 1);
+      }
+      removeQueen(i, x);
+      }
+     return c;
+   }
 }
