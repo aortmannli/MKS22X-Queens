@@ -14,7 +14,7 @@ public class QueenBoard{
       }
     }
 
-    public boolean addQueen(int r, int c){
+    private boolean addQueen(int r, int c){
       if(safe(r, c)) {
         board[r][c] = -1;
         return true;
@@ -38,12 +38,12 @@ public class QueenBoard{
         if (board[i][c] == -1) return false;
       }
 
-      for(int x = c, y = r ; x < board[y].length - 1 && y > 0; x++, y--){
-        if(board[x][y] == -1) return false;
+      for(int x = c, y = r; x < board[y].length - 1 && y > 0; x++, y--) {
+        if(board[y][x] == -1) return false;
       }
 
-      for(int x = c, y = r; x >= 0 && y < board.length - 1; x--, y++) {
-        if(board[x][y] == -1) return false;
+      for(int x = c, y = r; x >= 0 && y < board.length; x--, y++) {
+        if(board[y][x] == -1) return false;
       }
 
       for(int x = c, y = r; x < board[y].length - 1 && y < board.length - 1; x++, y++) {
@@ -56,6 +56,9 @@ public class QueenBoard{
 
       return true;
     }
+
+
+
 
 
     /**
@@ -159,12 +162,15 @@ public class QueenBoard{
 
    public int cSHelp(int x) {
      int c = 0;
+     if(x == board.length) return 1;
      for(int i = 0; i < board.length; i++) {
       if(addQueen(i,x)) {
         c += cSHelp(x + 1);
       }
-      removeQueen(i, x);
+        removeQueen(i, x);
       }
      return c;
    }
+
+
 }
