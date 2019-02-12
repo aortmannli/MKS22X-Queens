@@ -14,24 +14,43 @@ public class QueenBoard{
       }
     }
 
+// i was previously using a safe checker method and grace explained to me the way of marking unsafe
     private boolean addQueen(int r, int c){
-      if(safe(r, c)) {
+      if(board[r][c]==0){
         board[r][c] = -1;
+        for (int i = 0; i < board.length; i++) {
+          for (int x = c; x < board.length; x++) {
+            if ((i == r || Math.abs(r-i) == Math.abs(c-x) || x == c) && board[i][x] != -1) {
+              board[i][x] += 1;
+            }
+          }
+        }
         return true;
+      }else{
+        return false;
       }
-      return false;
     }
 
     private boolean removeQueen(int r, int c) {
-    if (board[r][c] == -1){
-      board[r][c] = 0;
-      return true;
-    }
-    return false;
+      if(board[r][c]==-1){
+        board[r][c] = 0;
+        for (int i = 0; i < board.length; i++) {
+          for (int x = c; x < board.length; x++) {
+            if ((i == r || Math.abs(r-i) == Math.abs(c-x) || x == c) && !(i == r && x == c)) {
+              board[i][x] -= 1;
+            }
+          }
+        }
+        return true;
+      }else{
+        return false;
+      }
     }
 
 
     //bryan lai told me hes doing it using a safe checker method and about this for loop format
+
+    /*
     public boolean safe(int r, int c){
       for(int i =0; i < board.length; i++){
         if (board[r][i] == -1) return false;
@@ -56,7 +75,7 @@ public class QueenBoard{
 
       return true;
     }
-
+*/
 
 
 
@@ -119,8 +138,8 @@ public class QueenBoard{
    public boolean solveHelp(int c){
      if (c==board.length) return true;
      for(int i = 0; i < board.length; i++) {
-          if(safe(i,c)) {
-            addQueen(i,c);
+          if(addQueen(i,c)) {
+
             if(solveHelp(c + 1)) {
               return true;
             }
