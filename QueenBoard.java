@@ -18,10 +18,10 @@ public class QueenBoard{
     private boolean addQueen(int r, int c){
       if(board[r][c]==0){
         board[r][c] = -1;
-        for (int i = 0; i < board.length; i++) {
-          for (int x = c; x < board.length; x++) {
-            if ((i == r || Math.abs(r-i) == Math.abs(c-x) || x == c) && board[i][x] != -1) {
-              board[i][x] += 1;
+        for (int x = 0; x < board.length; x++) {
+          for (int y = c; y < board.length; y++) {
+            if ((x == r || Math.abs(r-x) == Math.abs(c-y) || y == c) && board[x][y] != -1) {
+              board[x][y]++;
             }
           }
         }
@@ -34,10 +34,10 @@ public class QueenBoard{
     private boolean removeQueen(int r, int c) {
       if(board[r][c]==-1){
         board[r][c] = 0;
-        for (int i = 0; i < board.length; i++) {
-          for (int x = c; x < board.length; x++) {
-            if ((i == r || Math.abs(r-i) == Math.abs(c-x) || x == c) && !(i == r && x == c)) {
-              board[i][x] -= 1;
+        for (int x = 0; x < board.length; x++) {
+          for (int y = c; y < board.length; y++) {
+            if ((x == r || Math.abs(r-x) == Math.abs(c-y) || y == c) && !(x == r && y == c)) {
+              board[x][y]--;
             }
           }
         }
@@ -139,7 +139,6 @@ public class QueenBoard{
      if (c==board.length) return true;
      for(int i = 0; i < board.length; i++) {
           if(addQueen(i,c)) {
-
             if(solveHelp(c + 1)) {
               return true;
             }
